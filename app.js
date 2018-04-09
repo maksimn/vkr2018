@@ -6,7 +6,7 @@ const dbName = 'CarAccidents'; // Имя базы данных
 function selectCoordinatesOfAllCarAccidents(db, callback) {
     db.collection('CarAccidents').find({})
                                  .project( { "geo_code": 1 })
-								                 .toArray((err, docs) => {
+                                 .toArray((err, docs) => {
         if (err) {
             throw new Error('Error querying data.');
         }
