@@ -7,4 +7,6 @@ mongoRepository.findAccidentsIdsAndGeoCoordinates()
             'First document: \n',
             docs[0]
         );
+    }).catch(err => {
+        console.log(err);
     });
