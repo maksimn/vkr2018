@@ -10,3 +10,13 @@ mongoRepository.findAccidentsIdsAndGeoCoordinates()
     }).catch(err => {
         console.log(err);
     });
+
+mongoRepository.findCarAccidentsByCoordinates(55.4224, 37.2333)
+    .then(docs => {
+        console.log(
+            `findCarAccidentsByCoordinates(): ${docs.length} documents found.\n\n`,
+            docs, '\n\n'
+        );
+    }).catch(err => {
+        console.log(err);
+    });
