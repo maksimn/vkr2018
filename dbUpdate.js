@@ -1,5 +1,4 @@
 const MongoClient = require('mongodb').MongoClient;
-
 const config = require('./config.json');
 
 MongoClient.connect(config.DB_URL).then(client => {
@@ -22,5 +21,5 @@ MongoClient.connect(config.DB_URL).then(client => {
         client.close();
     });
 }).catch(err => {
-    reject(err);
+    console.log(err);
 });
