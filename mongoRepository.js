@@ -42,7 +42,11 @@ const mongoRepository = {
         )
     ),
 
-    findCarAccidentsInsideCircle: (coordinates, radius) => (
+    findCarAccidentsInsideCircle: function(coordinates, radius) {
+        return this.findCarAccidentsInsideTorus(coordinates, 0, radius)
+    },
+
+    findCarAccidentsInsideTorus: (coordinates, minDistance, maxDistance) => (
         connectAndQueryDB(db => (
             db.collection('CarAccidents')
                 .find({
@@ -52,8 +56,8 @@ const mongoRepository = {
                                 type: 'Point',
                                 coordinates: coordinates
                             },
-                            $minDistance: 0,
-                            $maxDistance: radius
+                            $minDistance: minDistance,
+                            $maxDistance: maxDistance
                         }
                     }
                 })

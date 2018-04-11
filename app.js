@@ -41,6 +41,20 @@ new Promise((resolve, reject) => {
     });
 }, err => {
     console.log(err);
+}).then(() => {
+    return new Promise((resolve, reject) => {
+        mongoRepository.findCarAccidentsInsideTorus([37.2333, 55.4224], 2000, 5000)
+            .then(docs => {
+                console.log(
+                    `\n\nfindCarAccidentsInsideTorus(): ${docs.length} documents found.\n\n`
+                );
+                resolve();
+            }).catch(err => {
+                reject(err);
+            });
+    });
+}, err => {
+    console.log(err);
 }).catch(err => {
     console.log(err);
 });
