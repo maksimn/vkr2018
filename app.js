@@ -27,4 +27,18 @@ new Promise((resolve, reject) => {
     });
 }, err => {
     console.log(err);
+}).then(() => {
+    return new Promise((resolve, reject) => {
+        mongoRepository.findCarAccidentsInsideCircle([37.2333, 55.4224], 5000)
+            .then(docs => {
+                console.log(
+                    `\n\nfindCarAccidentsInsideCircle(): ${docs.length} documents found.\n\n`
+                );
+                resolve();
+            }).catch(err => {
+                reject(err);
+            });
+    });
+}, err => {
+    console.log(err);
 });

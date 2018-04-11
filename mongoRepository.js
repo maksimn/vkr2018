@@ -40,6 +40,37 @@ const mongoRepository = {
                 })
             )
         )
+    ),
+
+    findCarAccidentsInsideCircle: (coordinates, radius) => (
+        new Promise((resolve, reject) => {
+            MongoClient.connect(config.DB_URL).then(client => {
+                const db = client.db(config.DB_NAME);
+                
+                db.collection('CarAccidents')
+                    .find({
+                        location: {
+                            $nearSphere: {
+                                $geometry: {
+                                    type: 'Point',
+                                    coordinates: coordinates
+                                },
+                                $minDistance: 0,
+                                $maxDistance: radius
+                            }
+                        }
+                    })
+                    .toArray()
+                    .then(docs => {
+                        resolve(docs);
+                        client.close();
+                    }).catch(err => {
+                        reject(err);
+                    });
+            }).catch(err => {
+                reject(err);
+            });
+        })
     )
 };
 
