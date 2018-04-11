@@ -25,17 +25,18 @@ const mongoRepository = {
         connectAndQueryDB(db => (
             db.collection('CarAccidents')
                 .find()
-                .project({ "geo_code": 1 })
+                .project({ "location": 1 })
             )
         )
     ),
     
-    findCarAccidentsByCoordinates: (latitude, longitude) => (
+    findCarAccidentsByCoordinates: (longitude, latitude) => (
         connectAndQueryDB(db => (
             db.collection('CarAccidents')
                 .find({
-                    'geo_code.latitude': latitude,
-                    'geo_code.longitude': longitude
+                    'location.coordinates': {
+                        $eq: [longitude, latitude]
+                    }
                 })
             )
         )

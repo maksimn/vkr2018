@@ -13,8 +13,8 @@ new Promise((resolve, reject) => {
             reject(err);
         });
 }).then(() => {
-    return new Promise(function (resolve, reject) {
-        mongoRepository.findCarAccidentsByCoordinates(55.4224, 37.2333)
+    return new Promise((resolve, reject) => {
+        mongoRepository.findCarAccidentsByCoordinates(37.2333, 55.4224)
             .then(docs => {
                 console.log(
                     `findCarAccidentsByCoordinates(): ${docs.length} documents found.\n\n`,
