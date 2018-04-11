@@ -17,8 +17,16 @@ MongoClient.connect(config.DB_URL).then(client => {
 
         carAccidents.update({ _id: doc._id }, setLocationField);
     }, () => {
-        console.log('Updated successfully.');
-        client.close();
+        console.log('Adding location field is successful.');
+        console.log('\n\nCreating 2dsphere geo index...\n\n');
+
+        carAccidents.createIndex({ location: '2dsphere' })
+            .then(res => {
+                console.log('\nIndex created successfully\n\n');
+                client.close();
+            }).catch(err => {
+                console.log(err);
+            });
     });
 }).catch(err => {
     console.log(err);
