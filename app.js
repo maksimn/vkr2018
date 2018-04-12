@@ -55,6 +55,36 @@ new Promise((resolve, reject) => {
     });
 }, err => {
     console.log(err);
+}).then(() => {
+    return new Promise((resolve, reject) => {
+        mongoRepository.findCarAccidentsThatIntersectsGeoObject('Polygon', [
+                [[37.2333, 55.4224], [37.2333, 55.8], [37.5, 55.8], [37.2333, 55.4224]]
+        ]).then(docs => {
+            console.log(
+                `\n\nfindCarAccidentsThatIntersectsGeoObject(): ${docs.length} documents found.\n\n`
+            );
+            resolve();
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}, err => {
+    console.log(err);
+}).then(() => {
+    return new Promise((resolve, reject) => {
+        mongoRepository.findCarAccidentsWithinGeometryShape('Polygon', [
+                [[37.2333, 55.4224], [37.2333, 55.8], [37.5, 55.8], [37.2333, 55.4224]]
+        ]).then(docs => {
+            console.log(
+                `\n\nfindCarAccidentsWithinGeometryShape(): ${docs.length} documents found.\n\n`
+            );
+            resolve();
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}, err => {
+    console.log(err);
 }).catch(err => {
     console.log(err);
 });

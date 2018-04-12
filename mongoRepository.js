@@ -63,6 +63,41 @@ const mongoRepository = {
                 })
             )
         )
+    ),
+
+    findCarAccidentsThatIntersectsGeoObject: (type, coordinates) => (
+        connectAndQueryDB(db => (
+            db.collection('CarAccidents')
+                .find({
+                    location: {                        
+                        $geoIntersects: {
+                            $geometry: {
+                                type: type,
+                                coordinates: coordinates
+                            }
+                        }
+                    }
+                })
+            )
+        )
+    ),
+
+    // type = Polygon | MultiPolygon
+    findCarAccidentsWithinGeometryShape: (type, coordinates) => (
+        connectAndQueryDB(db => (
+            db.collection('CarAccidents')
+                .find({
+                    location: {                        
+                        $geoWithin: {
+                            $geometry: {
+                               type: type,
+                               coordinates: coordinates
+                            }
+                         }
+                    }
+                })
+            )
+        )
     )
 };
 
