@@ -1,6 +1,7 @@
 ﻿const mongoRepository = require('./mongoRepository');
+const promiseChain = require('./promiseChain');
 
-new Promise((resolve, reject) => {
+promiseChain((resolve, reject) => {
     mongoRepository.findAccidentsIdsAndGeoCoordinates()
         .then(docs => {
             console.log(
@@ -12,95 +13,69 @@ new Promise((resolve, reject) => {
         }).catch(err => {
             reject(err);
         });
-}).then(() => {
-    return new Promise((resolve, reject) => {
-        mongoRepository.findCarAccidentsByCoordinates(37.2333, 55.4224)
-            .then(docs => {
-                console.log(
-                    `findCarAccidentsByCoordinates(): ${docs.length} documents found.\n\n`,
-                    docs, '\n\n'
-                );
-                resolve();
-            }).catch(err => {
-                reject(err);
-            });
-    });
-}, err => {
-    console.log(err);
-}).then(() => {
-    return new Promise((resolve, reject) => {
-        mongoRepository.findCarAccidentsInsideCircle([37.2333, 55.4224], 5000)
-            .then(docs => {
-                console.log(
-                    `\n\nfindCarAccidentsInsideCircle(): ${docs.length} documents found.\n\n`
-                );
-                resolve();
-            }).catch(err => {
-                reject(err);
-            });
-    });
-}, err => {
-    console.log(err);
-}).then(() => {
-    return new Promise((resolve, reject) => {
-        mongoRepository.findCarAccidentsInsideTorus([37.2333, 55.4224], 2000, 5000)
-            .then(docs => {
-                console.log(
-                    `\n\nfindCarAccidentsInsideTorus(): ${docs.length} documents found.\n\n`
-                );
-                resolve();
-            }).catch(err => {
-                reject(err);
-            });
-    });
-}, err => {
-    console.log(err);
-}).then(() => {
-    return new Promise((resolve, reject) => {
-        mongoRepository.findCarAccidentsThatIntersectsGeoObject('Polygon', [
-                [[37.2333, 55.4224], [37.2333, 55.8], [37.5, 55.8], [37.2333, 55.4224]]
-        ]).then(docs => {
+}, (resolve, reject) => {
+    mongoRepository.findCarAccidentsByCoordinates(37.2333, 55.4224)
+        .then(docs => {
             console.log(
-                `\n\nfindCarAccidentsThatIntersectsGeoObject(): ${docs.length} documents found.\n\n`
+                `findCarAccidentsByCoordinates(): ${docs.length} documents found.\n\n`,
+                docs, '\n\n'
             );
             resolve();
         }).catch(err => {
             reject(err);
         });
-    });
-}, err => {
-    console.log(err);
-}).then(() => {
-    return new Promise((resolve, reject) => {
-        mongoRepository.findCarAccidentsThatIntersectsGeoObject(
-                'LineString', 
-                [[37.2333, 55.4224], [37.2333, 55.8]]
-        ).then(docs => {
+}, (resolve, reject) => {
+    mongoRepository.findCarAccidentsInsideCircle([37.2333, 55.4224], 5000)
+        .then(docs => {
             console.log(
-                `\n\nfindCarAccidentsThatIntersectsGeoObject() LineString:  ${docs.length} documents found.\n\n`
+                `\n\nfindCarAccidentsInsideCircle(): ${docs.length} documents found.\n\n`
             );
             resolve();
         }).catch(err => {
             reject(err);
         });
-    });
-}, err => {
-    console.log(err);
-}).then(() => {
-    return new Promise((resolve, reject) => {
-        mongoRepository.findCarAccidentsWithinGeometryShape('Polygon', [
-                [[37.2333, 55.4224], [37.2333, 55.8], [37.5, 55.8], [37.2333, 55.4224]]
-        ]).then(docs => {
+}, (resolve, reject) => {
+    mongoRepository.findCarAccidentsInsideTorus([37.2333, 55.4224], 2000, 5000)
+        .then(docs => {
             console.log(
-                `\n\nfindCarAccidentsWithinGeometryShape(): ${docs.length} documents found.\n\n`
+                `\n\nfindCarAccidentsInsideTorus(): ${docs.length} documents found.\n\n`
             );
             resolve();
         }).catch(err => {
             reject(err);
         });
+}, (resolve, reject) => {
+    mongoRepository.findCarAccidentsThatIntersectsGeoObject('Polygon', [
+            [[37.2333, 55.4224], [37.2333, 55.8], [37.5, 55.8], [37.2333, 55.4224]]
+    ]).then(docs => {
+        console.log(
+            `\n\nfindCarAccidentsThatIntersectsGeoObject(): ${docs.length} documents found.\n\n`
+        );
+        resolve();
+    }).catch(err => {
+        reject(err);
     });
-}, err => {
-    console.log(err);
-}).catch(err => {
-    console.log(err);
+}, (resolve, reject) => {
+    mongoRepository.findCarAccidentsThatIntersectsGeoObject(
+            'LineString', 
+            [[37.2333, 55.4224], [37.2333, 55.8]]
+    ).then(docs => {
+        console.log(
+            `\n\nfindCarAccidentsThatIntersectsGeoObject() LineString:  ${docs.length} documents found.\n\n`
+        );
+        resolve();
+    }).catch(err => {
+        reject(err);
+    });
+}, (resolve, reject) => {
+    mongoRepository.findCarAccidentsWithinGeometryShape('Polygon', [
+            [[37.2333, 55.4224], [37.2333, 55.8], [37.5, 55.8], [37.2333, 55.4224]]
+    ]).then(docs => {
+        console.log(
+            `\n\nfindCarAccidentsWithinGeometryShape(): ${docs.length} documents found.\n\n`
+        );
+        resolve();
+    }).catch(err => {
+        reject(err);
+    });
 });
