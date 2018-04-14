@@ -6,7 +6,7 @@ const connectAndQueryDB = query => (
     new Promise((resolve, reject) => {
         MongoClient.connect(config.DB_URL).then(client => {
             const db = client.db(config.DB_NAME);
-            
+
             query(db).toArray()
                 .then(docs => {
                     resolve(docs);
@@ -26,10 +26,10 @@ const mongoRepository = {
             db.collection('CarAccidents')
                 .find()
                 .project({ "location": 1 })
-            )
+        )
         )
     ),
-    
+
     findCarAccidentsByCoordinates: (longitude, latitude) => (
         connectAndQueryDB(db => (
             db.collection('CarAccidents')
@@ -38,11 +38,11 @@ const mongoRepository = {
                         $eq: [longitude, latitude]
                     }
                 })
-            )
+        )
         )
     ),
 
-    findCarAccidentsInsideCircle: function(coordinates, radius) {
+    findCarAccidentsInsideCircle: function (coordinates, radius) {
         return this.findCarAccidentsInsideTorus(coordinates, 0, radius)
     },
 
@@ -61,7 +61,7 @@ const mongoRepository = {
                         }
                     }
                 })
-            )
+        )
         )
     ),
 
@@ -69,8 +69,26 @@ const mongoRepository = {
         connectAndQueryDB(db => (
             db.collection('CarAccidents')
                 .find({
-                    location: {                        
+                    location: {
                         $geoIntersects: {
+                            $geometry: {
+                                type: type,
+                                coordinates: coordinates
+                            }
+                        }
+                    }
+                })
+        )
+        )
+    ),
+
+    // type = Polygon | MultiPolygon
+    findCarAccidentsWithinGeometryShape: (type, coordinates) => (
+        connectAndQueryDB(db => (
+            db.collection('CarAccidents')
+                .find({
+                    location: {
+                        $geoWithin: {
                             $geometry: {
                                 type: type,
                                 coordinates: coordinates
@@ -82,22 +100,17 @@ const mongoRepository = {
         )
     ),
 
-    // type = Polygon | MultiPolygon
-    findCarAccidentsWithinGeometryShape: (type, coordinates) => (
+    findNearestCarAccidents: (coordinates, n) => (
         connectAndQueryDB(db => (
-            db.collection('CarAccidents')
-                .find({
-                    location: {                        
-                        $geoWithin: {
-                            $geometry: {
-                               type: type,
-                               coordinates: coordinates
-                            }
-                         }
-                    }
-                })
-            )
-        )
+            db.collection('CarAccidents').aggregate([{
+                $geoNear: {
+                    near: { type: "Point", coordinates: coordinates },
+                    distanceField: "calculatedDistance",
+                    num: n,
+                    spherical: true
+                }
+            }])
+        ))
     )
 };
 
