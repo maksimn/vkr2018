@@ -1,4 +1,4 @@
-﻿const mongoRepository = require('./mongoRepository');
+﻿const mongoRepository = require('../src/mongoRepository');
 const promiseChain = require('./promiseChain');
 
 promiseChain((resolve, reject) => {

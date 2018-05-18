@@ -1,5 +1,3 @@
-const mongoRepository = require('./mongoRepository');
-
 function promiseChain() {
     let promise = new Promise(arguments[0]);
 
