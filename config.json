@@ -1,4 +1,0 @@
-{
-    "DB_NAME": "CarAccidents",
-    "DB_URL": "mongodb://localhost:27017"
-}
