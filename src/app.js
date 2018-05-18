@@ -4,11 +4,12 @@ const mongoRepository = require('./mongoRepository');
 
 const app = express();
 
-app.use(express.static(__dirname));
-app.use(express.static(__dirname + '/..'));
+const root = __dirname + '/..';
+
+app.use(express.static(root));
 
 app.get('/', (req, res) => {
-    res.sendFile('./ui/index.html',  { root: __dirname });
+    res.sendFile('/dist/index.html',  { root: root });
 });
 
 app.get('/carAccidents', (req, res) => {
