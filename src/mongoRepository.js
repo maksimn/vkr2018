@@ -26,7 +26,7 @@ const mongoRepository = {
             db.collection('CarAccidents')
                 .find()
                 .project({ "location": 1 })
-        )
+            )
         )
     ),
 
