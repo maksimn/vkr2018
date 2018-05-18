@@ -3,10 +3,11 @@ const config = require('./config.json');
 
 const app = express();
 
+app.use(express.static(__dirname));
 app.use(express.static(__dirname + '/..'));
 
 app.get('/', (req, res) => {
-    res.sendFile('./index.html',  { root: __dirname });
+    res.sendFile('./ui/index.html',  { root: __dirname });
 });
 
 app.listen(config.PORT, () => {
