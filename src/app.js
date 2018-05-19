@@ -3,7 +3,6 @@ const config = require('./config.json');
 const mongoRepository = require('./mongoRepository');
 
 const app = express();
-
 const root = __dirname + '/..';
 
 app.use(express.static(root));

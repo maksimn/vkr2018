@@ -6,9 +6,6 @@
     <title>Информационная система</title>
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/dist/index.css" />
-    <script src="/node_modules/axios/dist/axios.min.js"></script>
-    <script src="https://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
-    <script src="/src/index.js"></script>
 </head>
 
 <body>
@@ -17,27 +14,10 @@
         <h3>Информационная система</h3>
         <p>ДТП в Москве</p>
     </div>
-    
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <ul class="nav navbar-nav">
-                <li class="active">
-                    <a href="/">Все</a>
-                </li>
-                <li>
-                    <a href="#">Полигон</a>
-                </li>
-                <li>
-                    <a href="#">Ближайшие</a>
-                </li>
-                <li>
-                    <a href="#">Другие</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    
-    <div id="map" class="yandex-map"></div>
+
+    <div id="react-app"></div>
+
+    <script src="/dist/index.js"></script>
 
 </body>
 
