@@ -2,7 +2,7 @@ var path = require('path');
 
 module.exports = {
     devtool: "inline-source-map",
-    entry: "./src/react/index.js",
+    entry: "./react/index.js",
     module: {
         rules: [{
             test: /\.jsx?$/,
