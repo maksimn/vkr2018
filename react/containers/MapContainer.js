@@ -6,12 +6,20 @@ const mapState = {
     zoom: 10
 };
 
-const MapContainer = () => (
-    <div className="yandex-map">
-        <YMaps>
-            <Map state={ mapState } width={ 600 } height={ 500 }></Map>
-        </YMaps>
-    </div>
-);
+class MapContainer extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div className="yandex-map">
+                <YMaps>
+                    <Map state={mapState} width={600} height={500}></Map>
+                </YMaps>
+            </div>
+        );
+    }
+}
 
 export default MapContainer;

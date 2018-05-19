@@ -1,8 +1,11 @@
 .yandex-map {
-    height: 500px;
     margin-left: 44px;
 }
 
 .navbar {
     margin-bottom: 0;
+}
+
+.show-button {
+    float: right;
 }
