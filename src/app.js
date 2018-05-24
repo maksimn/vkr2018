@@ -7,10 +7,6 @@ const root = __dirname + '/..';
 
 app.use(express.static(root));
 
-app.get('/', (req, res) => {
-    res.sendFile('/dist/index.html',  { root: root });
-});
-
 app.get('/carAccidents', (req, res) => {
     mongoRepository.findAccidentsIdsAndGeoCoordinates()
         .then(carAccidents => {
@@ -18,6 +14,10 @@ app.get('/carAccidents', (req, res) => {
         }).catch(err => {
             res.sendStatus(404).send();
         });
+});
+
+app.get('*', (req, res) => {
+    res.sendFile('/dist/index.html',  { root: root });
 });
 
 app.listen(config.PORT, () => {

@@ -1,20 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const NavigationBar = () => (
     <nav className="navbar navbar-default">
         <div className="container-fluid">
             <ul className="nav navbar-nav">
                 <li className="active">
-                    <a href="/">Все</a>
+                    <Link to="/">Все</Link>
                 </li>
                 <li>
-                    <a href="#">Полигон</a>
+                    <Link to="/byPolygon">Полигон</Link>
                 </li>
                 <li>
-                    <a href="#">Ближайшие</a>
+                    <Link to="/nearest">Ближайшие</Link>
                 </li>
                 <li>
-                    <a href="#">Другие</a>
+                    <Link to="/other">Другие</Link>
                 </li>
             </ul>
         </div>

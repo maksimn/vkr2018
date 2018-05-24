@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { YMaps, Map, Placemark  } from 'react-yandex-maps';
 
 import {
@@ -64,7 +63,8 @@ class IndexPageBody extends React.Component {
                 <div className="yandex-map">
                     <YMaps>
                         <Map state={ { center: [55.76, 37.64], zoom: 10 } } 
-                             width={ 600 } height={ 500 }>
+                             width={ 600 } height={ 500 }
+                             onClick={ this.onYMapClick }>
                             { placemarks }
                         </Map>
                     </YMaps>
@@ -81,11 +81,6 @@ class IndexPageBody extends React.Component {
         );
     }
 }
-
-IndexPageBody.propTypes = {
-    allAccidentsCoords: PropTypes.array,
-    isAllAccidentsVisible: PropTypes.bool.isRequired
-};
 
 export default connect(
     (state) => ({
