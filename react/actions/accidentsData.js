@@ -3,7 +3,9 @@ import axios from 'axios';
 import {
     LOAD_ALL_ACCIDENTS_COORDS_START,
     LOAD_ALL_ACCIDENTS_COORDS_SUCCESS,
-    LOAD_ALL_ACCIDENTS_COORDS_ERROR
+    LOAD_ALL_ACCIDENTS_COORDS_ERROR,
+    SHOW_ALL_ACCIDENTS,
+    HIDE_ALL_ACCIDENTS
 } from './constants';
 
 export const loadAllAccidentsCoords = () => {
@@ -17,3 +19,6 @@ export const loadAllAccidentsCoords = () => {
         });
     };
 }
+
+export const showAllAccidents = () => ({ type: SHOW_ALL_ACCIDENTS });
+export const hideAllAccidents = () => ({ type: HIDE_ALL_ACCIDENTS });
