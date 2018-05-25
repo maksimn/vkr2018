@@ -2,11 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { YMaps, Map, Placemark  } from 'react-yandex-maps';
 
+import { getNearestAccident } from '../actions/accidentsData';
+
 class NearestAccidentPageBody extends React.Component {
     constructor(props) {
         super(props);
 
         this.onMapClick = this.onMapClick.bind(this);
+        this.onFindButtonClick = this.onFindButtonClick.bind(this);
         this.state = {startPlaceMarkCoords: null};
     }
 
@@ -16,6 +19,10 @@ class NearestAccidentPageBody extends React.Component {
         this.setState({startPlaceMarkCoords: coords});
     }
 
+    onFindButtonClick() {
+        this.props.dispatch(getNearestAccident(this.state.startPlaceMarkCoords));
+    }
+
     get isStartPlacemarkSet() {
         const startPlaceMarkCoords = this.state ? this.state.startPlaceMarkCoords : null;
 
@@ -23,13 +30,24 @@ class NearestAccidentPageBody extends React.Component {
     }
 
     render() {
-        let startPlacemark = null; 
+        const {nearestAccident} = this.props;
+        let startPlacemark = null, 
+            nearestAccidentPlacemark = null; 
         
         if (this.isStartPlacemarkSet) {
             startPlacemark = 
                 <Placemark 
                     geometry={{ coordinates: this.state.startPlaceMarkCoords }}
+                    properties={{
+                        iconContent: '?'
+                    }}
                     options={{ preset: 'islands#blackStretchyIcon' }} />;
+        }
+
+        if (nearestAccident) {
+            nearestAccidentPlacemark = 
+                <Placemark 
+                    geometry={{ coordinates: nearestAccident.coordinates }} />;
         }
 
         return (
@@ -40,13 +58,17 @@ class NearestAccidentPageBody extends React.Component {
                              width={ 600 } height={ 500 }
                              onClick={ this.onMapClick }>
                              { startPlacemark }
+                             { nearestAccidentPlacemark }
                         </Map>
                     </YMaps>
                 </div>
-                <button type="button" className="btn btn-primary">Найти</button>
+                <button type="button" className="btn btn-primary"
+                    onClick={ this.onFindButtonClick }>Найти</button>
             </div>
         );
     }
 }
 
-export default connect()(NearestAccidentPageBody);
+export default connect(state => ({
+    nearestAccident: state.nearestAccident
+}))(NearestAccidentPageBody);
