@@ -46,8 +46,9 @@ class IndexPageBody extends React.Component {
         let placemarks = null;
 
         if (isAllAccidentsVisible && allAccidentsCoords && allAccidentsCoords.length > 0) {
-            placemarks = allAccidentsCoords.map(accident => (
+            placemarks = allAccidentsCoords.map((accident, ind) => (
                 <Placemark
+                    key={ ind }
                     geometry={{
                         coordinates: [
                             accident.location.coordinates[1],
