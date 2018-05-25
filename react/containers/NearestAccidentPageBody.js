@@ -8,15 +8,33 @@ class NearestAccidentPageBody extends React.Component {
     constructor(props) {
         super(props);
 
+        this.onMapBoundsChange = this.onMapBoundsChange.bind(this);
         this.onMapClick = this.onMapClick.bind(this);
         this.onFindButtonClick = this.onFindButtonClick.bind(this);
-        this.state = {startPlaceMarkCoords: null};
+        this.state = {
+            mapState: { center: [55.76, 37.64], zoom: 10 },
+            startPlaceMarkCoords: null
+        };
+    }
+
+    onMapBoundsChange(e) {
+        const event = e.originalEvent;
+        const center = event.newCenter;
+        const zoom = event.newZoom;
+
+        this.setState({
+            ...this.state,
+            mapState: { center, zoom }
+        });
     }
 
     onMapClick(e) {
         const {coords} = e._sourceEvent.originalEvent;
 
-        this.setState({startPlaceMarkCoords: coords});
+        this.setState({
+            ...this.state,
+            startPlaceMarkCoords: coords
+        });
     }
 
     onFindButtonClick() {
@@ -54,9 +72,10 @@ class NearestAccidentPageBody extends React.Component {
             <div>
                 <div className="yandex-map">
                     <YMaps>
-                        <Map state={ { center: [55.76, 37.64], zoom: 10 } } 
+                        <Map state={ this.state.mapState } 
                              width={ 600 } height={ 500 }
-                             onClick={ this.onMapClick }>
+                             onClick={ this.onMapClick }
+                             onBoundsChange={ this.onMapBoundsChange }>
                              { startPlacemark }
                              { nearestAccidentPlacemark }
                         </Map>
