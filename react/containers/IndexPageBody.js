@@ -63,8 +63,7 @@ class IndexPageBody extends React.Component {
                 <div className="yandex-map">
                     <YMaps>
                         <Map state={ { center: [55.76, 37.64], zoom: 10 } } 
-                             width={ 600 } height={ 500 }
-                             onClick={ this.onYMapClick }>
+                             width={ 600 } height={ 500 }>
                             { placemarks }
                         </Map>
                     </YMaps>
