@@ -49,24 +49,12 @@ class NearestAccidentPageBody extends React.Component {
 
     render() {
         const {nearestAccident} = this.props;
-        let startPlacemark = null, 
-            nearestAccidentPlacemark = null; 
-        
-        if (this.isStartPlacemarkSet) {
-            startPlacemark = 
-                <Placemark 
-                    geometry={{ coordinates: this.state.startPlaceMarkCoords }}
-                    properties={{
-                        iconContent: '?'
-                    }}
-                    options={{ preset: 'islands#blackStretchyIcon' }} />;
-        }
-
-        if (nearestAccident) {
-            nearestAccidentPlacemark = 
-                <Placemark 
-                    geometry={{ coordinates: nearestAccident.coordinates }} />;
-        }
+        const startPlacemark = this.isStartPlacemarkSet ? 
+            <Placemark geometry={{ coordinates: this.state.startPlaceMarkCoords }}
+                properties={{ iconContent: '?' }}
+                options={{ preset: 'islands#blackStretchyIcon' }} /> : null;
+        const nearestAccidentPlacemark = nearestAccident ? 
+                <Placemark geometry={{ coordinates: nearestAccident.coordinates }} /> : null;
 
         return (
             <div>

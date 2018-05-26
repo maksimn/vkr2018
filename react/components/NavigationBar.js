@@ -1,25 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-const NavigationBar = () => (
-    <nav className="navbar navbar-default">
-        <div className="container-fluid">
-            <ul className="nav navbar-nav">
-                <li className="active">
-                    <Link to="/">Все</Link>
-                </li>
-                <li>
-                    <Link to="/byPolygon">Полигон</Link>
-                </li>
-                <li>
-                    <Link to="/nearest">Ближайшие</Link>
-                </li>
-                <li>
-                    <Link to="/other">Другие</Link>
-                </li>
-            </ul>
-        </div>
-    </nav>
-);
+const NavigationBar = (props) => {
+    const {pathname} = props.location;
+    
+    return (
+        <nav className="navbar navbar-default">
+            <div className="container-fluid">
+                <ul className="nav navbar-nav">
+                    <li className={ pathname === '/' ? 'active' : ''}>
+                        <Link to="/">Все</Link>
+                    </li>
+                    <li className={ pathname === '/byPolygon' ? 'active' : ''}>
+                        <Link to="/byPolygon">Полигон</Link>
+                    </li>
+                    <li className={ pathname === '/nearest' ? 'active' : ''}>
+                        <Link to="/nearest">Ближайшие</Link>
+                    </li>
+                    <li className={ pathname === '/other' ? 'active' : ''}>
+                        <Link to="/other">Другие</Link>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    )
+};
 
-export default NavigationBar;
+const NavigationBarWithRouter = withRouter(props => <NavigationBar {...props}/>);
+
+export default NavigationBarWithRouter;
