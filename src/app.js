@@ -35,6 +35,24 @@ app.get('/nearest/:coords', (req, res) => {
         });
 });
 
+app.get('/polygon/:coords', (req, res) => {
+    const coords = JSON.parse(req.params.coords);
+    const coordinates = coords.map(c => ([c[1], c[0]]));
+    coordinates.push(coordinates[0]);
+
+    mongoRepository.findCarAccidentsWithinGeometryShape('Polygon', [coordinates])
+        .then(result => {
+            const responseData = result.map(doc => ({
+                _id: doc._id,
+                location: doc.location
+            }));
+
+            res.json(responseData);
+        }).catch(err => {
+            res.sendStatus(404).send();
+        });
+});
+
 app.get('*', (req, res) => {
     res.sendFile('/dist/index.html',  { root: root });
 });

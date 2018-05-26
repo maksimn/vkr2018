@@ -34,13 +34,19 @@ export const getNearestAccident = coords => {
             dispatch({ type: GET_NEAREST_ACCIDENT_SUCCESS, data: response.data });
         }).catch(err => {
             dispatch({ type: GET_NEAREST_ACCIDENT_ERROR, err });
-        });       
+        });
     }
 }
 
 export const findAccidentsWithinPolygon = coordinates => {
     return dispatch => {
         dispatch({ type: FIND_ACCIDENTS_WITHIN_POLYGON_START, coordinates });
+
+        axios.get(`/polygon/${JSON.stringify(coordinates)}`).then(response => {
+            dispatch({ type: FIND_ACCIDENTS_WITHIN_POLYGON_SUCCESS, data: response.data });
+        }).catch(err => {
+            dispatch({ type: FIND_ACCIDENTS_WITHIN_POLYGON_ERROR, err });
+        }); 
     }    
 }
 
