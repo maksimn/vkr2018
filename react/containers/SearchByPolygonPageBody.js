@@ -45,6 +45,16 @@ class SearchByPolygonPageBody extends React.Component {
     }
 
     render() {
+        const {accidentsWithinPolygon} = this.props;
+        const placemarks = accidentsWithinPolygon ? 
+            accidentsWithinPolygon.map(accident => {
+                const {coordinates} = accident.location;
+
+                return (
+                    <Placemark geometry={{ coordinates: [coordinates[1], coordinates[0]] }} />
+                );
+        }) : null;
+
         return (
             <div>
                 <div className="yandex-map">
@@ -62,6 +72,7 @@ class SearchByPolygonPageBody extends React.Component {
                                     strokeWidth: 2
                                 }}
                             />
+                            { placemarks }
                         </Map>
                     </YMaps>
                 </div>
@@ -73,4 +84,5 @@ class SearchByPolygonPageBody extends React.Component {
 }
 
 export default connect(state => ({
+    accidentsWithinPolygon: state.accidentsWithinPolygon
 }))(SearchByPolygonPageBody);
