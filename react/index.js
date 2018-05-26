@@ -8,6 +8,7 @@ import store, { history } from './store';
 import IndexPageBody from './containers/IndexPageBody';
 import NavigationBar from './components/NavigationBar';
 import NearestAccidentPageBody from './containers/NearestAccidentPageBody';
+import SearchByPolygonPageBody from './containers/SearchByPolygonPageBody';
 
 const TestComponent = () => (<div>Test</div>);
 
@@ -18,6 +19,7 @@ ReactDOM.render(
                 <NavigationBar />
                 <Switch>
                     <Route exact path="/" component={IndexPageBody}/>
+                    <Route exact path="/byPolygon" component={SearchByPolygonPageBody} />
                     <Route exact path="/nearest" component={NearestAccidentPageBody} />
                     <Route path="*" component={TestComponent}/>
                 </Switch>

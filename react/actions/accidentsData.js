@@ -8,7 +8,10 @@ import {
     HIDE_ALL_ACCIDENTS,
     GET_NEAREST_ACCIDENT_START,
     GET_NEAREST_ACCIDENT_SUCCESS,
-    GET_NEAREST_ACCIDENT_ERROR
+    GET_NEAREST_ACCIDENT_ERROR,
+    FIND_ACCIDENTS_WITHIN_POLYGON_START,
+    FIND_ACCIDENTS_WITHIN_POLYGON_SUCCESS,
+    FIND_ACCIDENTS_WITHIN_POLYGON_ERROR
 } from './constants';
 
 export const loadAllAccidentsCoords = () => {
@@ -33,6 +36,12 @@ export const getNearestAccident = coords => {
             dispatch({ type: GET_NEAREST_ACCIDENT_ERROR, err });
         });       
     }
+}
+
+export const findAccidentsWithinPolygon = coordinates => {
+    return dispatch => {
+        dispatch({ type: FIND_ACCIDENTS_WITHIN_POLYGON_START, coordinates });
+    }    
 }
 
 export const showAllAccidents = () => ({ type: SHOW_ALL_ACCIDENTS });
