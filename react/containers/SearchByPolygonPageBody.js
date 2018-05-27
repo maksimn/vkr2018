@@ -44,16 +44,28 @@ class SearchByPolygonPageBody extends React.Component {
         });
     }
 
+    onAccidentsPlacemarkClick(e) {
+        console.log(e);
+    }
+
     render() {
         const {accidentsWithinPolygon} = this.props;
         const placemarks = accidentsWithinPolygon ? 
             accidentsWithinPolygon.map(accident => {
                 const {coordinates} = accident.location;
                 const accidentNum = accident.accidentIds.length;
+                const linksArray = accident.accidentIds.map(id => (
+                    `<a href="/accident/${id}">ДТП №${id}</a>`
+                ));
+                const hintContent = linksArray.join('<br />');
 
                 return (
                     <Placemark geometry={{ coordinates: [coordinates[1], coordinates[0]] }}
-                        properties={{ iconContent: accidentNum }} />
+                        properties={{
+                            hintContent, 
+                            iconContent: accidentNum 
+                        }}
+                        onClick={ this.onAccidentsPlacemarkClick } />
                 );
         }) : null;
 
