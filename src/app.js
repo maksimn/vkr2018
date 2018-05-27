@@ -48,6 +48,17 @@ app.get('/polygon/:coords', (req, res) => {
         });
 });
 
+app.get('/accidentId/:id', (req, res) => {
+    const id = req.params.id;
+
+    mongoRepository.findAccidentById(id)
+        .then(result => {
+            res.json(result);
+        }).catch(err => {
+            res.sendStatus(404).send();
+        });
+});
+
 app.get('*', (req, res) => {
     res.sendFile('/dist/index.html',  { root: root });
 });

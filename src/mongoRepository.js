@@ -1,4 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
 
 const config = require('./config.json');
 
@@ -21,6 +22,23 @@ const connectAndQueryDB = query => (
 );
 
 const mongoRepository = {
+    findAccidentById: id => (
+        new Promise((resolve, reject) => {
+            MongoClient.connect(config.DB_URL).then(client => {
+                const db = client.db(config.DB_NAME);
+
+                db.collection('CarAccidents').findOne({_id: ObjectID(id)})
+                    .then(docs => {
+                        resolve(docs);
+                        client.close();
+                    }).catch(err => {
+                        reject(err);
+                    });
+            }).catch(err => {
+                reject(err);
+            });
+        })
+    ),
     findAccidentsIdsAndGeoCoordinates: () => (
         connectAndQueryDB(db => (
             db.collection('CarAccidents')
