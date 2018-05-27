@@ -42,12 +42,7 @@ app.get('/polygon/:coords', (req, res) => {
 
     mongoRepository.findCarAccidentsWithinGeometryShape('Polygon', [coordinates])
         .then(result => {
-            const responseData = result.map(doc => ({
-                _id: doc._id,
-                location: doc.location
-            }));
-
-            res.json(responseData);
+            res.json(result);
         }).catch(err => {
             res.sendStatus(404).send();
         });

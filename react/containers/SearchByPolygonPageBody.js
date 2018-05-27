@@ -49,9 +49,11 @@ class SearchByPolygonPageBody extends React.Component {
         const placemarks = accidentsWithinPolygon ? 
             accidentsWithinPolygon.map(accident => {
                 const {coordinates} = accident.location;
+                const accidentNum = accident.accidentIds.length;
 
                 return (
-                    <Placemark geometry={{ coordinates: [coordinates[1], coordinates[0]] }} />
+                    <Placemark geometry={{ coordinates: [coordinates[1], coordinates[0]] }}
+                        properties={{ iconContent: accidentNum }} />
                 );
         }) : null;
 
