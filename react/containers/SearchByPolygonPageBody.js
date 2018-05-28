@@ -55,7 +55,7 @@ class SearchByPolygonPageBody extends React.Component {
                 const {coordinates} = accident.location;
                 const accidentNum = accident.accidentIds.length;
                 const linksArray = accident.accidentIds.map(id => (
-                    `<a href="/accident/${id}">ДТП №${id}</a>`
+                    `<a href="/accident/${id}">ДТП № ${id}</a>`
                 ));
                 const hintContent = linksArray.join('<br />');
 
@@ -90,7 +90,7 @@ class SearchByPolygonPageBody extends React.Component {
                         </Map>
                     </YMaps>
                 </div>
-                <button type="button" className="btn btn-primary"
+                <button type="button" className="btn btn-primary find-button"
                     onClick={ this.onFindButtonClick }>Найти</button>
             </div>
         );

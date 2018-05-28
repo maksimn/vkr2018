@@ -10,8 +10,9 @@ import NavigationBar from './components/NavigationBar';
 import NearestAccidentPageBody from './containers/NearestAccidentPageBody';
 import SearchByPolygonPageBody from './containers/SearchByPolygonPageBody';
 import AccidentDocumentPageBody from './containers/AccidentDocumentPageBody';
+import OtherPageBody from './containers/OtherPageBody';
 
-const TestComponent = () => (<div>Test</div>);
+const ErrorComponent = () => (<div>Error, wrong URL.</div>);
 
 ReactDOM.render(
     <Provider store={store}>
@@ -23,7 +24,8 @@ ReactDOM.render(
                     <Route exact path="/byPolygon" component={SearchByPolygonPageBody} />
                     <Route exact path="/nearest" component={NearestAccidentPageBody} />
                     <Route exact path="/accident/:id" component={AccidentDocumentPageBody} />
-                    <Route path="*" component={TestComponent}/>
+                    <Route exact path="/other" component={OtherPageBody} />
+                    <Route path="*" component={ErrorComponent}/>
                 </Switch>
             </div>
         </ConnectedRouter>

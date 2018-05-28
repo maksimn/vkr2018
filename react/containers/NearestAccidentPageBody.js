@@ -54,7 +54,13 @@ class NearestAccidentPageBody extends React.Component {
                 properties={{ iconContent: '?' }}
                 options={{ preset: 'islands#blackStretchyIcon' }} /> : null;
         const nearestAccidentPlacemark = nearestAccident ? 
-                <Placemark geometry={{ coordinates: nearestAccident.coordinates }} /> : null;
+                <Placemark geometry={{ coordinates: nearestAccident.coordinates }}
+                    properties={{
+                        hintContent: 
+                            `<a href="/accident/${nearestAccident._id}">
+                                ДТП № ${nearestAccident._id}
+                            </a>`
+                    }}/> : null;
 
         return (
             <div>
@@ -69,7 +75,7 @@ class NearestAccidentPageBody extends React.Component {
                         </Map>
                     </YMaps>
                 </div>
-                <button type="button" className="btn btn-primary"
+                <button type="button" className="btn btn-primary find-button"
                     onClick={ this.onFindButtonClick }>Найти</button>
             </div>
         );

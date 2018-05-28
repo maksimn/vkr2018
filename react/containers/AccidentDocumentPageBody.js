@@ -6,7 +6,7 @@ class AccidentDocumentPageBody extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.setState({});
     }
 
     componentWillMount() {
@@ -20,7 +20,13 @@ class AccidentDocumentPageBody extends React.Component {
     }
 
     render() {
-        return <JSONTree data={this.state} theme={{
+        return <div className="accident-data">
+            <h4>Данные о ДТП</h4>
+            <JSONTree
+                data={
+                    this.state ? this.state : { message: 'Данные загружаются...' }
+                } 
+                theme={{
                     scheme: 'google',
                     author: 'seth wright (http://sethawright.com)',
                     base00: '#1d1f21',
@@ -39,7 +45,9 @@ class AccidentDocumentPageBody extends React.Component {
                     base0D: '#3971ED',
                     base0E: '#A36AC7',
                     base0F: '#3971ED'
-        } }/>;
+                }}
+            />
+        </div>;
     }
 }
 
