@@ -46,6 +46,7 @@ export const findAccidentsWithinPolygon = coordinates => {
             dispatch({ type: FIND_ACCIDENTS_WITHIN_POLYGON_SUCCESS, data: response.data });
         }).catch(err => {
             dispatch({ type: FIND_ACCIDENTS_WITHIN_POLYGON_ERROR, err });
+            dispatch({ type: HIDE_ALL_ACCIDENTS });
         }); 
     }    
 }

@@ -1,7 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 
-const config = require('./config.json');
+const config = require('../config.json');
 
 const connectAndQueryDB = query => (
     new Promise((resolve, reject) => {
